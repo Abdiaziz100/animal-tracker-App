@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Animal Tracker",
+    "slug": "animal-tracker-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#16a34a"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.animaltracker.app"
+    },
+    "android": {
+      "package": "com.animaltracker.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#16a34a"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "710ec913-0163-48ac-8db1-e11c9161068f"
+      }
+    },
+    "owner": "qoriyow1233s-organization"
+  }
+}

@@ -1,0 +1,16 @@
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/instance/
+backend/.env
+backend/*.db
+
+# Mobile
+mobile/node_modules/
+mobile/.expo/
+mobile/.env
+
+# General
+.DS_Store
+*.log
