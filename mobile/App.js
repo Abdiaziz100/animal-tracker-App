@@ -27,14 +27,14 @@ function TabNavigator() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           const icons = {
-            Dashboard: focused ? 'home' : 'home-outline',
-            Scan: focused ? 'radio' : 'radio-outline',
-            Alerts: focused ? 'notifications' : 'notifications-outline',
-            Report: focused ? 'document-text' : 'document-text-outline',
-            Geofence: focused ? 'location' : 'location-outline',
-            Device: focused ? 'phone-portrait' : 'phone-portrait-outline',
-            'Add Animal': focused ? 'add-circle' : 'add-circle-outline',
-            Settings: focused ? 'settings' : 'settings-outline',
+            Dashboard:    focused ? 'home'           : 'home-outline',
+            Scan:         focused ? 'radio'          : 'radio-outline',
+            Alerts:       focused ? 'notifications'  : 'notifications-outline',
+            Report:       focused ? 'document-text'  : 'document-text-outline',
+            Geofence:     focused ? 'location'       : 'location-outline',
+            Device:       focused ? 'phone-portrait' : 'phone-portrait-outline',
+            'Add Animal': focused ? 'add-circle'     : 'add-circle-outline',
+            Settings:     focused ? 'settings'       : 'settings-outline',
           };
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
         },
@@ -44,31 +44,30 @@ function TabNavigator() {
         headerTintColor: 'white',
       })}
     >
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Scan" component={ScanScreen} options={{ headerStyle: { backgroundColor: '#1e40af' } }} />
-      <Tab.Screen name="Alerts" component={AlertsScreen} options={{ headerStyle: { backgroundColor: '#dc2626' } }} />
-      <Tab.Screen name="Report" component={ReportScreen} options={{ headerStyle: { backgroundColor: '#1e3a5f' } }} />
-      <Tab.Screen name="Geofence" component={GeofenceScreen} options={{ headerStyle: { backgroundColor: '#16a34a' } }} />
-      <Tab.Screen name="Device" component={DeviceSimulator} options={{ headerStyle: { backgroundColor: '#7c3aed' } }} />
-      <Tab.Screen name="Add Animal" component={AddAnimal} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Dashboard"   component={Dashboard} />
+      <Tab.Screen name="Scan"        component={ScanScreen}       options={{ headerStyle: { backgroundColor: '#1e40af' } }} />
+      <Tab.Screen name="Alerts"      component={AlertsScreen}     options={{ headerStyle: { backgroundColor: '#dc2626' } }} />
+      <Tab.Screen name="Report"      component={ReportScreen}     options={{ headerStyle: { backgroundColor: '#1e3a5f' } }} />
+      <Tab.Screen name="Geofence"    component={GeofenceScreen} />
+      <Tab.Screen name="Device"      component={DeviceSimulator}  options={{ headerStyle: { backgroundColor: '#7c3aed' } }} />
+      <Tab.Screen name="Add Animal"  component={AddAnimal} />
+      <Tab.Screen name="Settings"    component={SettingsScreen} />
     </Tab.Navigator>
   );
 }
 
 function RootNavigator() {
   const { user } = useAuth();
-
   return (
     <NavigationContainer>
       {user ? (
         <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#16a34a' }, headerTintColor: 'white' }}>
-          <Stack.Screen name="Main" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="Main"        component={TabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="AnimalDetail" component={AnimalDetail} options={{ title: 'Animal Detail' }} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login"    component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
         </Stack.Navigator>
       )}

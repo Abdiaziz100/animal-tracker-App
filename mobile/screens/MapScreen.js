@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ActivityIndicator, TouchableOpacity, Alert, FlatList, useNavigation } from 'react-native';
+import { View, Text, ActivityIndicator, TouchableOpacity, Alert, FlatList } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
