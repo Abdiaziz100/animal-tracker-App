@@ -364,6 +364,17 @@ def generate_report():
         "animals": [animal_to_dict(a) for a in animals]
     })
 
+@app.route("/api/admin/users", methods=["GET"])
+def admin_users():
+    users = User.query.all()
+    return jsonify([{
+        "id": u.id,
+        "full_name": u.full_name,
+        "email": u.email,
+        "farm_name": u.farm_name,
+        "created_at": u.created_at.isoformat()
+    } for u in users])
+
 @app.route("/")
 def home():
     return jsonify({"status": "🐄 Livestock Tracker API v2.0 - Government Edition"})
