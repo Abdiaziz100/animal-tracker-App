@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { API_URL } from '../config';
 
 const AuthContext = createContext();
@@ -10,30 +10,23 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken]     = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load saved token on app start
-  useEffect(() => {
-    loadStoredAuth();
-  }, []);
+  useEffect(() => { loadStoredAuth(); }, []);
 
   const loadStoredAuth = async () => {
     try {
-      const savedToken = await AsyncStorage.getItem('token');
-      const savedUser  = await AsyncStorage.getItem('user');
+      const savedToken = await SecureStore.getItemAsync('token');
+      const savedUser  = await SecureStore.getItemAsync('user');
       if (savedToken && savedUser) {
         setToken(savedToken);
         setUser(JSON.parse(savedUser));
       }
-    } catch (e) {
-      console.log('Error loading auth:', e);
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) {} 
+    finally { setLoading(false); }
   };
 
-  // Auto logout on 401 or 422
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(
-      response => response,
+      r => r,
       async error => {
         if (error.response?.status === 401 || error.response?.status === 422) {
           await clearAuth();
@@ -47,15 +40,15 @@ export const AuthProvider = ({ children }) => {
   const saveAuth = async (newToken, userData) => {
     setToken(newToken);
     setUser(userData);
-    await AsyncStorage.setItem('token', newToken);
-    await AsyncStorage.setItem('user', JSON.stringify(userData));
+    await SecureStore.setItemAsync('token', newToken);
+    await SecureStore.setItemAsync('user', JSON.stringify(userData));
   };
 
   const clearAuth = async () => {
     setToken(null);
     setUser(null);
-    await AsyncStorage.removeItem('token');
-    await AsyncStorage.removeItem('user');
+    await SecureStore.deleteItemAsync('token');
+    await SecureStore.deleteItemAsync('user');
   };
 
   const login = async (email, password) => {
@@ -80,9 +73,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
-    await clearAuth();
-  };
+  const logout = async () => { await clearAuth(); };
 
   const getAuthHeader = () => ({ headers: { Authorization: `Bearer ${token}` } });
 
