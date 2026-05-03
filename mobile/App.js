@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import LoginScreen from './screens/LoginScreen';
@@ -57,7 +58,16 @@ function TabNavigator() {
 }
 
 function RootNavigator() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f0fdf4' }}>
+        <Text style={{ fontSize: 48 }}>🐄</Text>
+        <Text style={{ color: '#16a34a', fontWeight: 'bold', fontSize: 18, marginTop: 12 }}>Livestock Tracker</Text>
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
       {user ? (
