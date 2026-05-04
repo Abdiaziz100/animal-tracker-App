@@ -26,7 +26,8 @@ export default function ReportScreen() {
       const res = await axios.get(`${API_URL}/report`, getAuthHeader());
       setReport(res.data);
     } catch (e) {
-      Alert.alert('Error', 'Failed to generate report');
+      const msg = e.response?.data?.error || e.response?.status || e.message || 'Unknown error';
+      Alert.alert('Error', `Failed to generate report\n\nReason: ${msg}\n\nTry logging out and logging in again.`);
     } finally {
       setLoading(false);
     }
