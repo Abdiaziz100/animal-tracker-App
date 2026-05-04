@@ -375,6 +375,10 @@ def admin_users():
         "created_at": u.created_at.isoformat()
     } for u in users])
 
+@app.route("/ping")
+def ping():
+    return {"status": "ok"}, 200
+
 @app.route("/")
 def home():
     return jsonify({"status": "🐄 Livestock Tracker API v2.0 - Government Edition"})
