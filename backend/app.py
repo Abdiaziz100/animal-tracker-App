@@ -11,9 +11,12 @@ app = Flask(__name__)
 CORS(app)
 
 # ── Config ──────────────────────────────────────────────────────────────────
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
-    "DATABASE_URL", "sqlite:///livestock.db"
-)
+# Fix Render PostgreSQL URL (postgres:// → postgresql://)
+database_url = os.environ.get("DATABASE_URL", "sqlite:///livestock.db")
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET", "govt-livestock-secret-2024-secure")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=30)
